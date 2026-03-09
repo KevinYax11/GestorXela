@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    font-family: var(--font-sans, -apple-system, sans-serif);
+    color: #111827;
+    background-color: white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif, Georgia, serif);
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  /* Branded Buttons */
+  .btn-primary {
+    background-color: var(--color-primary-500);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-600);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-accent {
+    background-color: var(--color-accent-500);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-accent:hover {
+    background-color: var(--color-accent-600);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Ensure all buttons are rounded */
+  button {
+    border-radius: 0.5rem;
+  }
+
+  /* Card Component */
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  }
+
+  /* Container */
+  .container-custom {
+    max-width: var(--container-max-width, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}

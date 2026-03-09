@@ -1,0 +1,71 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: grupo-gestor-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: grupo_gestor
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 3
+      start_period: 3s
+    # Performance tuning
+    command: >
+      postgres
+      -c shared_buffers=256MB
+      -c max_connections=100
+      -c work_mem=4MB
+      -c maintenance_work_mem=64MB
+      -c effective_cache_size=512MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c synchronous_commit=off
+      -c fsync=off
+  
+  # Payload + Next.js App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: grupo-gestor-app:latest
+    container_name: grupo-gestor-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/grupo_gestor
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:-dev-secret-key-change-in-production}
+      - NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+      - NODE_ENV=development
+      - CI=true
+      - NEXT_TELEMETRY_DISABLED=1
+      - NODE_OPTIONS=--no-deprecation --max-old-space-size=2048
+    volumes:
+      # Only mount source code for hot reload (using delegated for performance)
+      - ./src:/app/src:delegated
+      - ./public:/app/public:delegated
+      - ./.env:/app/.env:ro
+      - ./next.config.mjs:/app/next.config.mjs:ro
+      - ./tailwind.config.ts:/app/tailwind.config.ts:ro
+      - ./postcss.config.mjs:/app/postcss.config.mjs:ro
+      - ./tsconfig.json:/app/tsconfig.json:ro
+      # Don't mount node_modules or .next - use the ones from the image
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

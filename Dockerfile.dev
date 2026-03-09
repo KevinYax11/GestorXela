@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1.4
+FROM node:20-alpine
+
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 make g++
+
+WORKDIR /app
+
+# Enable pnpm via corepack (faster than npm install)
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
+# Copy package files
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies with cache mount for MUCH faster rebuilds
+# BuildKit will cache the pnpm store between builds
+RUN --mount=type=cache,id=pnpm,target=/root/.pnpm-store \
+    pnpm install --frozen-lockfile
+
+# Expose port
+EXPOSE 3000
+
+# Start dev server directly
+CMD ["sh", "-c", "pnpm payload migrate && pnpm dev"]

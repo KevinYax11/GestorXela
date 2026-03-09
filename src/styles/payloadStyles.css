@@ -1,0 +1,210 @@
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+/* Comment base layer to prevent it from messing with Payload configs */
+/* @import 'tailwindcss/base.css' layer(base); */
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Make tailwind work correctly with dark mode for Payload */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ========================================
+   GRUPO GESTOR QUETZALTENANGO BRANDING
+   ======================================== */
+
+@layer theme {
+  :root {
+    /* Primary Brand Colors - Dark Blue */
+    --color-primary-50: #e8f0f7;
+    --color-primary-100: #b8d4e9;
+    --color-primary-500: #2d5a8f;
+    --color-primary-500: #2d5a8f;
+    --color-primary-600: #1e3a5f;
+    --color-primary-700: #162d4a;
+    --color-primary-900: #0f2038;
+
+    /* Accent Brand Colors - Gold/Tan */
+    --color-accent-50: #faf6ef;
+    --color-accent-100: #f0e8d6;
+    --color-accent-500: #c9a961;
+    --color-accent-600: #b39652;
+    --color-accent-700: #9d8343;
+
+    /* Semantic Colors */
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-info: #3b82f6;
+
+    /* Typography */
+    --font-sans: 'Inter', -apple-system, sans-serif;
+    --font-serif: 'Merriweather', Georgia, serif;
+
+    /* Spacing */
+    --container-max-width: 1200px;
+  }
+}
+
+/* ========================================
+   PAYLOAD ADMIN PANEL CUSTOMIZATION
+   ======================================== */
+
+@layer components {
+  /* Sidebar - Dark Blue Background */
+  .nav {
+    background-color: var(--color-primary-500) !important;
+  }
+
+  /* Sidebar Links */
+  .nav a,
+  .nav button {
+    color: rgba(255, 255, 255, 0.85) !important;
+    transition: all 0.2s ease;
+  }
+
+  .nav__link {
+    color: var(--color-accent-500) !important;
+  }
+
+  .nav__link-indicator {
+    background-color: var(--color-accent-600) !important;
+  }
+
+  /* SVG icon colors on hover - change stroke color */
+  .icon--plus .stroke {
+    stroke: white !important;
+  }
+
+  .icon:hover .stroke,
+  .icon:hover path.stroke,
+  .nav-group__label:hover ~ .nav-group__indicator .stroke,
+  .nav-group__label:hover ~ .nav-group__indicator path.stroke,
+  .nav-group:hover .nav-group__indicator .stroke,
+  .nav-group:hover .nav-group__indicator path.stroke {
+    stroke: var(--color-accent-500) !important;
+  }
+
+  /* Active Navigation Item */
+  .nav a.active,
+  .nav button.active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-left: 4px solid var(--color-accent-500) !important;
+    color: white !important;
+  }
+
+  button.dropdown__toggle {
+    padding: 0 !important;
+  }
+
+  /* Primary Buttons - Gold/Accent Color */
+  button[type='submit'],
+  .btn--style-primary,
+  .btn--primary {
+    background-color: var(--color-accent-500) !important;
+    border-color: var(--color-accent-500) !important;
+    color: white !important;
+    border-radius: 0.5rem !important;
+  }
+
+  button[type='submit']:hover,
+  .btn--style-primary:hover,
+  .btn--primary:hover {
+    background-color: var(--color-accent-600) !important;
+  }
+
+  /* All buttons should be rounded - but exclude card overlay buttons and nav-toggler */
+  button:not(.pill):not(.card__click):not(.card *):not(.nav-toggler):not(.dropdown__toggle):not(
+      .dropdown-indicator
+    ):not(.popup-button):not(.icon):not(.date-time-picker__clear-button):not(
+      .popup-button-list__button
+    ):not(.upload-relationship-details__edit):not(.upload-relationship-details__remove):not(
+      .upload__createNewToggler
+    ):not(.upload__listToggler):not(.doc-drawer__header-close):not(
+      .react-datepicker__navigation
+    ):not(.file-field__remove):not(.slash-menu-popup__item):not(.copy-to-clipboard):not(
+      .file-details__remove
+    ),
+  .btn:not(.card__click):not(.card *):not(.nav-toggler):not(.dropdown__toggle):not(
+      .dropdown-indicator
+    ):not(.upload-relationship-details__edit):not(.upload-relationship-details__remove):not(
+      .upload__createNewToggler
+    ):not(.upload__listToggler):not(.file-field__remove):not(.file-details__remove) {
+    color: white !important;
+    padding: 0.35rem 0.75rem !important;
+    background-color: var(--color-primary-500) !important;
+    border-radius: 0.35rem !important;
+  }
+
+  /* Header */
+  .app-header {
+    background-color: white !important;
+    border-bottom: 2px solid var(--color-primary-500) !important;
+  }
+
+  .list-header__title-and-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: bottom !important;
+    margin: 1rem 0 0 0 !important;
+  }
+
+  /* Links */
+  a {
+    color: var(--color-primary-500) !important;
+  }
+
+  a:hover {
+    color: var(--color-accent-500) !important;
+  }
+
+  /* Focus States */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-accent-500) !important;
+    box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15) !important;
+  }
+
+  /* Table Headers */
+  .table th {
+    background-color: var(--color-primary-500) !important;
+    color: white !important;
+  }
+
+  /* Cards */
+  .card {
+    background-color: var(--color-primary-500) !important;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .list-header__title-actions {
+    margin-bottom: 0 !important;
+  }
+
+  .card .card__title,
+  .card h3.card__title,
+  h3.card__title,
+  .card > h3,
+  div.card h3 {
+    color: white !important;
+    opacity: 1 !important;
+    font-size: 1.5rem !important;
+  }
+
+  .card h1,
+  .card h2,
+  .card h3,
+  .card h4,
+  .card h5,
+  .card h6 {
+    color: white !important;
+  }
+
+  .card {
+    background-color: #2d5a8f !important;
+  }
+}
