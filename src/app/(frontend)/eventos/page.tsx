@@ -87,11 +87,21 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
 
   return (
     <section className="pb-20 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 pt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
         {/* Page Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 text-center">EVENTOS</h1>
-          <p className="text-gray-600 max-w-7xl mx-auto">
+        <div className="mb-8 flex flex-col items-center justify-center w-full">
+          <div className="relative flex flex-col items-center justify-center w-full">
+            <div className="mb-4 sm:mb-0 sm:absolute sm:left-0 sm:top-1/2 sm:-translate-y-1/2">
+            <Link
+              href="/"
+              className="inline-flex items-center text-[#2d5a8f] font-semibold hover:text-[#1e3a5f] text-sm transition-colors"
+            >
+              ← Volver a inicio
+            </Link>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-900 text-center">EVENTOS</h1>
+          </div>
+          <p className="text-gray-600 max-w-2xl w-full text-center mt-4">
             Conoce los eventos y actividades organizados por Grupo Gestor Quetzaltenango y mantente
             informado de cómo puedes participar.
           </p>

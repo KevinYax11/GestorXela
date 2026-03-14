@@ -19,20 +19,21 @@ export default async function HomePage() {
     overrideAccess: false,
   })
 
-  // TODO Phase 3: Fetch latest news
-  // const newsResult = await payload.find({
-  //   collection: 'news',
-  //   where: { status: { equals: 'published' } },
-  //   limit: 3,
-  //   sort: '-publishedAt',
-  //   overrideAccess: false,
-  // })
+  const newsResult = await payload.find({
+    collection: 'news',
+    where: { status: { equals: 'published' } },
+    limit: 3,
+    sort: '-publishedAt',
+    overrideAccess: false,
+  })
 
   // TODO Phase 6: Fetch homepage data from Payload Globals
   // const homepage = await payload.findGlobal({ slug: 'homepage', depth: 1 })
   // const partners = await payload.findGlobal({ slug: 'partners', depth: 1 })
   // const settings = await payload.findGlobal({ slug: 'site-settings', depth: 1 })
-
+  {
+    ;[]
+  }
   return (
     <>
       {/* Hero Section - Main banner with CTA buttons */}
@@ -41,17 +42,17 @@ export default async function HomePage() {
       {/* About Us Section - Who we are, mission, strategic partners */}
       <AboutSection />
 
-      {/* Conference Section - High-level speakers carousel */}
-      <ConferenceSection />
+      {/* TODO: DELETE, kept just for reference */}
+      {/* <ConferenceSection /> */}
 
-      {/* Thematic Areas - Categories/Topics we work on */}
-      <ThematicAreasSection />
+      {/* TODO: DELETE, kept just for reference */}
+      {/* <ThematicAreasSection /> */}
 
       {/* Upcoming Events Section */}
       <EventsSection events={eventsResult.docs} />
 
       {/* Latest News Section */}
-      <NewsSection />
+      <NewsSection news={newsResult.docs} />
 
       {/* TODO Phase 5: Add Opinion Articles section if needed */}
       {/* TODO Phase 6: Add Contact section */}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams,usePathname } from 'next/navigation'
 
 interface Category {
   id: string
@@ -11,7 +11,7 @@ interface Category {
 export default function CategoryFilter({ categories }: { categories: Category[] }) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  
+  const pathname = usePathname()
   
   const currentCategory = searchParams.get('categoria') || ''
 
@@ -28,17 +28,14 @@ export default function CategoryFilter({ categories }: { categories: Category[] 
     }
 
 
-    router.push(`/eventos?${params.toString()}`)
-  }
-
+    router.push(`${pathname}?${params.toString()}`)  }
 return (
     
-    <div className="relative sm:ml-8 w-full sm:w-auto">
+    <div className="relative w-full max-w-full">
       <select
         value={currentCategory}
         onChange={handleChange}
-        className="appearance-none px-4 pr-10 py-2 rounded-lg font-semibold bg-white border border-[#2d5a8f] text-[#2d5a8f] focus:outline-none focus:ring-2 focus:ring-[#2d5a8f] cursor-pointer min-w-[200px] w-full"
-      >
+        className="appearance-none w-full px-4 pr-10 py-3 rounded-lg font-semibold bg-white border border-[#2d5a8f] text-[#2d5a8f] focus:outline-none focus:ring-2 focus:ring-[#2d5a8f] cursor-pointer truncate shadow-sm"      >
         <option value="">Todas las categorías</option>
         {categories.map((cat) => (
           <option key={cat.id} value={cat.slug}>
